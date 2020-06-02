@@ -203,6 +203,7 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
             crearUsuario();
             
         }
+        System.out.println("BlaBla");
         
 
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
