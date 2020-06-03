@@ -18,7 +18,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private Usuario user;
 
     /**
-     * AQUI ES DONDE LOS DEMAS PANELES SON LLAMADOS, EXCEPTO CHAT QUE ES UN FRAME A PARTE
+     * AQUI ES DONDE LOS DEMAS PANELES SON LLAMADOS, EXCEPTO CHAT QUE ES UN
+     * FRAME A PARTE
      *
      * @param user
      */
@@ -31,6 +32,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private PrincipalFrame() {
         initComponents();
         centrar();
+        initMio();
+
     }
 
     /**
@@ -42,17 +45,33 @@ public class PrincipalFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        principalPanel = new javax.swing.JTabbedPane();
+        inicioPanel1 = new codigo.InicioPanel();
+        perfilPanel2 = new codigo.PerfilPanel();
+        seguidosPanel1 = new codigo.SeguidosPanel();
+        quedadaPanel1 = new codigo.QuedadaPanel();
+        ajustesPanel1 = new codigo.AjustesPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        principalPanel.addTab("tab1", inicioPanel1);
+        principalPanel.addTab("tab3", perfilPanel2);
+        principalPanel.addTab("tab3", seguidosPanel1);
+        principalPanel.addTab("tab4", quedadaPanel1);
+        principalPanel.addTab("tab5", ajustesPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(principalPanel)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(principalPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
         );
 
         pack();
@@ -99,5 +118,19 @@ public class PrincipalFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private codigo.AjustesPanel ajustesPanel1;
+    private codigo.InicioPanel inicioPanel1;
+    private codigo.PerfilPanel perfilPanel2;
+    private javax.swing.JTabbedPane principalPanel;
+    private codigo.QuedadaPanel quedadaPanel1;
+    private codigo.SeguidosPanel seguidosPanel1;
     // End of variables declaration//GEN-END:variables
+
+    private void initMio() {
+        principalPanel.setTitleAt(0, "Inicio");
+        principalPanel.setTitleAt(1, "Perfil");
+        principalPanel.setTitleAt(2, "MeetUpers");
+        principalPanel.setTitleAt(3, "Crear MeetUp");
+        principalPanel.setTitleAt(4, "Ajustes");
+    }
 }
