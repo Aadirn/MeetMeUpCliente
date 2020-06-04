@@ -23,10 +23,12 @@ public class CreaUsuarios implements CreaUsuariosI {
     private Calendar fechaCreacion;
     private Calendar fechaNacimiento;
     private String usuariosSeguidos;
+    private int numUsuariosSeguidos;
     private String contrasena;
     private float valoracion;
     private int vecesValorado;
     private int totalValoraciones;
+    private String biografia;
     private UsuarioNoThread u = new UsuarioNoThread();
 
     public UsuarioNoThread registrarToObj(String comando) {
@@ -46,20 +48,30 @@ public class CreaUsuarios implements CreaUsuariosI {
 
     }
 
+    @Override
     public UsuarioNoThread actualizarToObj(String comando) {
-        //nick_usuario+, nombre_usuario+ "', apellido1_usuario "', apellido2_usuario='"', fecha_nacimiento_usuario=', valoraciones='" + "', veces_valorado='" ++ "', valoracion_total='
+        //return id + "#" + nickname + "#" + nombre + "#" + apellido1 + "#" + apellido2 + "#" + 
+//        fechaAStringCorrecta(fechaCreacion) + "#" + fechaAStringCorrecta(fechaNacimiento) + "#" 
+//                + usuariosSeguidos + "#" + numUsuariosSeguidos + "#" + contrasena + "#" + valoracion +
+//                "#" + vecesValorado + "#" + totalValoraciones + "#" + biografia;
         String[] datosUsuario;
         datosUsuario = comando.split("#");
-        nickname = datosUsuario[0];
-        nombre = datosUsuario[1];
-        apellido1 = datosUsuario[2];
-        apellido2 = datosUsuario[3];
-        fechaNacimiento = u.fechaACAlendarCorrecta(datosUsuario[4]);
-        valoracion = Float.parseFloat(datosUsuario[5]);
-        vecesValorado = Integer.parseInt(datosUsuario[6]);
-        totalValoraciones = Integer.parseInt(datosUsuario[7]);
+        id = Integer.parseInt(datosUsuario[0]);
+        nickname = datosUsuario[1];
+        nombre = datosUsuario[2];
+        apellido1 = datosUsuario[3];
+        apellido2 = datosUsuario[4];
+        fechaCreacion = u.fechaACAlendarCorrecta(datosUsuario[5]);
+        fechaNacimiento = u.fechaACAlendarCorrecta(datosUsuario[6]);
+        usuariosSeguidos = datosUsuario[7];
+        numUsuariosSeguidos = Integer.parseInt(datosUsuario[8]);
+        contrasena = datosUsuario[9];
+        valoracion = Float.parseFloat(datosUsuario[10]);
+        vecesValorado = Integer.parseInt(datosUsuario[11]);
+        totalValoraciones = Integer.parseInt(datosUsuario[12]);
+        biografia = datosUsuario[13];
 
-        UsuarioNoThread user = new UsuarioNoThread(nickname, nombre, apellido1, apellido2, fechaNacimiento, usuariosSeguidos, valoracion, vecesValorado, totalValoraciones);
+        UsuarioNoThread user = new UsuarioNoThread(nickname, nombre, apellido1, apellido2, fechaNacimiento, usuariosSeguidos, numUsuariosSeguidos, valoracion, vecesValorado, totalValoraciones, biografia);
         return user;
 
     }
@@ -77,11 +89,13 @@ public class CreaUsuarios implements CreaUsuariosI {
         fechaCreacion = u.fechaACAlendarCorrecta(datos[6]);
         fechaNacimiento = u.fechaACAlendarCorrecta(datos[7]);
         usuariosSeguidos = datos[8];
-        valoracion = Float.parseFloat(datos[9]);
-        vecesValorado = Integer.parseInt(datos[10]);
-        totalValoraciones = Integer.parseInt(datos[11]);
-        
-        UsuarioNoThread user = new UsuarioNoThread(id, nickname, nombre, apellido1, apellido2, fechaCreacion, fechaNacimiento, usuariosSeguidos, contrasena, valoracion, vecesValorado, totalValoraciones);
+        numUsuariosSeguidos = Integer.parseInt(datos[9]);
+        valoracion = Float.parseFloat(datos[10]);
+        vecesValorado = Integer.parseInt(datos[11]);
+        totalValoraciones = Integer.parseInt(datos[12]);
+        biografia = datos[13];
+
+        UsuarioNoThread user = new UsuarioNoThread(id, nickname, nombre, apellido1, apellido2, fechaCreacion, fechaNacimiento, usuariosSeguidos, numUsuariosSeguidos, contrasena, valoracion, vecesValorado, totalValoraciones, biografia);
         return user;
     }
 

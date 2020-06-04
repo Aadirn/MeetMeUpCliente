@@ -6,7 +6,6 @@
 package dao;
 
 import modelo.Quedada;
-import modelo.Usuario;
 import modelo.UsuarioNoThread;
 
 /**

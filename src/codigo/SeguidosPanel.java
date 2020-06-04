@@ -15,7 +15,7 @@ import javax.swing.JScrollPane;
  * @author VSPC-ETERNALSTORM2V5
  */
 public class SeguidosPanel extends javax.swing.JPanel {
-    
+
     private int numSeguidos;
     private final String nombreSeguido;
     private final String apellido1Seguido;
@@ -27,14 +27,14 @@ public class SeguidosPanel extends javax.swing.JPanel {
      *
      */
     public SeguidosPanel(int numSeguidos, String nombreSeguido, String apellido1Seguido, String apellido2Seguido, String nickSeguido) {
-        initComponents();
         this.numSeguidos = numSeguidos;
         this.nombreSeguido = nombreSeguido;
         this.apellido1Seguido = apellido1Seguido;
         this.apellido2Seguido = apellido2Seguido;
         this.nickSeguido = nickSeguido;
+        creaPanelesSiHay();
     }
-    
+
     public SeguidosPanel() {
         initComponents();
         this.numSeguidos = 0;
@@ -43,35 +43,35 @@ public class SeguidosPanel extends javax.swing.JPanel {
         this.apellido1Seguido = "";
         this.apellido2Seguido = "";
     }
-    
+
     public int getNumSeguidos() {
         return numSeguidos;
     }
-    
+
     public void setNumSeguidos(int numSeguidos) {
         this.numSeguidos = numSeguidos;
     }
-    
+
     public JLabel getjLabel1() {
         return jLabel1;
     }
-    
+
     public void setjLabel1(JLabel jLabel1) {
         this.jLabel1 = jLabel1;
     }
-    
+
     public JPanel getPnlQuedadas() {
         return pnlQuedadas;
     }
-    
+
     public void setPnlQuedadas(JPanel pnlQuedadas) {
         this.pnlQuedadas = pnlQuedadas;
     }
-    
+
     public JScrollPane getScrollInicio() {
         return scrollInicio;
     }
-    
+
     public void setScrollInicio(JScrollPane scrollInicio) {
         this.scrollInicio = scrollInicio;
     }
@@ -111,13 +111,14 @@ public class SeguidosPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(scrollInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(156, 156, 156))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,10 +162,11 @@ public class SeguidosPanel extends javax.swing.JPanel {
         GridLayout gL = new GridLayout(numSeguidos, 1, 1, 1);
         pnlQuedadas.setLayout(gL);
         int i = 0;
-        do {
-            pnlQuedadas.add(new MiPanelSeguidos(nombreSeguido, apellido1Seguido, apellido2Seguido, nickSeguido));
-            i++;
-        } while (i < numSeguidos);
-        
+        if (numSeguidos != 0) {
+            do {
+                pnlQuedadas.add(new MiPanelSeguidos(nombreSeguido, apellido1Seguido, apellido2Seguido, nickSeguido));
+                i++;
+            } while (i < numSeguidos);
+        }
     }
 }

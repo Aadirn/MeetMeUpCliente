@@ -27,10 +27,10 @@ public class InicioPanel extends javax.swing.JPanel {
      * @param numQuedadas
      */
     public InicioPanel(String nombreQuedada, String creadorQuedada, int numQuedadas) {
-        initComponents();
         this.numQuedadas = numQuedadas;
         this.nombreQuedada = nombreQuedada;
         this.creadorQuedada = creadorQuedada;
+        creaPanelesSiHay();
         //QUE ME PASEN EL NUMERO DE QUEDADAS
 
     }
@@ -152,10 +152,12 @@ public class InicioPanel extends javax.swing.JPanel {
         GridLayout gL = new GridLayout(numQuedadas, 1, 1, 1);
         pnlQuedadas.setLayout(gL);
         int i = 0;
-        do {
-            pnlQuedadas.add(new MiPanelQuedada(nombreQuedada, creadorQuedada));
-            i++;
-        } while (i < numQuedadas);
+        if (numQuedadas != 0) {
+            do {
+                pnlQuedadas.add(new MiPanelQuedada(nombreQuedada, creadorQuedada));
+                i++;
+            } while (i < numQuedadas);
+        }
 
     }
 }

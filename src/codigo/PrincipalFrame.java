@@ -7,6 +7,8 @@ package codigo;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.PrintWriter;
+import modelo.ThreadActualizar;
 import modelo.Usuario;
 
 /**
@@ -16,6 +18,7 @@ import modelo.Usuario;
 public class PrincipalFrame extends javax.swing.JFrame {
 
     private Usuario user;
+    private ThreadActualizar tA;
 
     /**
      * AQUI ES DONDE LOS DEMAS PANELES SON LLAMADOS, EXCEPTO CHAT QUE ES UN
@@ -26,7 +29,9 @@ public class PrincipalFrame extends javax.swing.JFrame {
     public PrincipalFrame(Usuario user) {
         this.user = user;
         initComponents();
-        centrar();
+        iniciarThread(user);
+        initMio();
+        //initConDatos();
     }
 
     private PrincipalFrame() {
@@ -46,19 +51,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         principalPanel = new javax.swing.JTabbedPane();
-        inicioPanel1 = new codigo.InicioPanel();
-        perfilPanel2 = new codigo.PerfilPanel();
-        seguidosPanel1 = new codigo.SeguidosPanel();
-        quedadaPanel1 = new codigo.QuedadaPanel();
-        ajustesPanel1 = new codigo.AjustesPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        principalPanel.addTab("tab1", inicioPanel1);
-        principalPanel.addTab("tab3", perfilPanel2);
-        principalPanel.addTab("tab3", seguidosPanel1);
-        principalPanel.addTab("tab4", quedadaPanel1);
-        principalPanel.addTab("tab5", ajustesPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,19 +112,31 @@ public class PrincipalFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private codigo.AjustesPanel ajustesPanel1;
-    private codigo.InicioPanel inicioPanel1;
-    private codigo.PerfilPanel perfilPanel2;
     private javax.swing.JTabbedPane principalPanel;
-    private codigo.QuedadaPanel quedadaPanel1;
-    private codigo.SeguidosPanel seguidosPanel1;
     // End of variables declaration//GEN-END:variables
 
     private void initMio() {
+        principalPanel.add(new InicioPanel());
         principalPanel.setTitleAt(0, "Inicio");
+
+        principalPanel.add(new PerfilPanel(user,tA));
         principalPanel.setTitleAt(1, "Perfil");
+
+        principalPanel.add(new SeguidosPanel());
         principalPanel.setTitleAt(2, "MeetUpers");
+
+        principalPanel.add(new QuedadaPanel());
         principalPanel.setTitleAt(3, "Crear MeetUp");
+
+        principalPanel.add(new AjustesPanel());
         principalPanel.setTitleAt(4, "Ajustes");
+
+        this.pack();
+        centrar();
+    }
+
+    private void iniciarThread(Usuario user) {
+        tA = ThreadActualizar.init(user);
+        tA.start();
     }
 }

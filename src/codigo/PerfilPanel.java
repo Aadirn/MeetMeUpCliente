@@ -6,6 +6,9 @@
 package codigo;
 
 import java.util.Calendar;
+import modelo.ThreadActualizar;
+import modelo.Usuario;
+import modelo.UsuarioNoThread;
 
 /**
  *
@@ -14,6 +17,7 @@ import java.util.Calendar;
 public class PerfilPanel extends javax.swing.JPanel {
 
     private String nombreUsuario;
+    private String nombre;
     private String apellido1;
     private String apellido2;
     private String anhos;
@@ -21,6 +25,10 @@ public class PerfilPanel extends javax.swing.JPanel {
     private Calendar fechaNacimiento;
     private String biografia;
     private boolean esMiPerfil;
+    private float valoracion;
+    private Usuario user;
+    private ThreadActualizar tA;
+    private UsuarioNoThread u = new UsuarioNoThread();
 
     /**
      * Creates new form InicioPanel
@@ -31,13 +39,11 @@ public class PerfilPanel extends javax.swing.JPanel {
 
     }
 
-    public PerfilPanel(String nombreUsuario, String apellido1, String apellido2, Calendar fechaCreacion, Calendar fechaNacimiento, boolean esMiPerfil) {
-        this.nombreUsuario = nombreUsuario;
-        this.apellido1 = apellido1;
-        this.apellido2 = apellido2;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaNacimiento = fechaNacimiento;
-        this.esMiPerfil = esMiPerfil;
+    public PerfilPanel(Usuario user, ThreadActualizar tA) {
+        initComponents();
+        this.user = user;
+        this.tA = tA;
+        rellenarCajasTxt();
     }
 
     /**
@@ -58,11 +64,12 @@ public class PerfilPanel extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtBiografia = new javax.swing.JTextArea();
-        btnSeguir = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         txtNickname = new javax.swing.JTextField();
         txtAnhos = new javax.swing.JTextField();
         txtNombreYApellidos = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        lblValoracion = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         jLabel1.setText("Perfil");
@@ -76,77 +83,96 @@ public class PerfilPanel extends javax.swing.JPanel {
 
         jLabel6.setText("Fecha de la  Creacion de la Cuenta:");
 
+        lblFechaCreacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setText("Años");
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel10.setText("Biografia");
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
         txtBiografia.setColumns(20);
         txtBiografia.setRows(5);
         jScrollPane1.setViewportView(txtBiografia);
 
-        btnSeguir.setText("Seguir");
-
         btnGuardar.setText("Guardar Cambios");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
+        txtNickname.setEditable(false);
         txtNickname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNicknameActionPerformed(evt);
             }
         });
 
+        txtAnhos.setEditable(false);
         txtAnhos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAnhosActionPerformed(evt);
             }
         });
 
+        txtNombreYApellidos.setEditable(false);
         txtNombreYApellidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreYApellidosActionPerformed(evt);
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setText("Valoracion:");
+
+        lblValoracion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(206, 206, 206)
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(62, 62, 62)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel10)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(37, 37, 37)
-                                    .addComponent(txtNombreYApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addGap(62, 62, 62)
-                                    .addComponent(txtNickname, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtAnhos, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(8, 8, 8)
-                                    .addComponent(jLabel6))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(52, 52, 52)
-                                    .addComponent(lblFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSeguir)
-                            .addGap(41, 41, 41)
-                            .addComponent(btnGuardar))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(206, 206, 206)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(37, 37, 37)
+                                        .addComponent(txtNombreYApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(62, 62, 62)
+                                        .addComponent(txtNickname, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(165, 165, 165)
+                                        .addComponent(txtAnhos, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblValoracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(lblFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardar)))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -170,16 +196,18 @@ public class PerfilPanel extends javax.swing.JPanel {
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblValoracion, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGuardar)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnSeguir)
-                        .addComponent(btnGuardar)))
-                .addGap(8, 8, 8))
+                        .addComponent(lblFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -195,22 +223,51 @@ public class PerfilPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreYApellidosActionPerformed
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        String nuevaBio = txtBiografia.getText();
+        System.out.println(user.getBiografia());
+        System.out.println(nuevaBio);
+        user.setBiografia(nuevaBio);
+        tA.actualizar(user);
+
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnSeguir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFechaCreacion;
+    private javax.swing.JLabel lblValoracion;
     private javax.swing.JTextField txtAnhos;
     private javax.swing.JTextArea txtBiografia;
     private javax.swing.JTextField txtNickname;
     private javax.swing.JTextField txtNombreYApellidos;
     // End of variables declaration//GEN-END:variables
+
+    private void rellenarCajasTxt() {
+        txtNickname.setText(user.getNickname());
+        txtNombreYApellidos.setText(user.getNombre() + " " + user.getApellido1() + " " + user.getApellido2());
+        txtBiografia.setLineWrap(true);
+        txtBiografia.setWrapStyleWord(true);
+        txtBiografia.setText(user.getBiografia());
+        int anhoActual = Calendar.getInstance().get(Calendar.YEAR);
+        System.out.println(anhoActual);
+        int anhoNacimiento = user.getFechaNacimiento().get(Calendar.YEAR);
+        System.out.println(anhoNacimiento);
+        anhos = (anhoActual - anhoNacimiento) + "";
+        System.out.println(anhos);
+        txtAnhos.setText(anhos);
+        lblFechaCreacion.setText(user.fechaAStringCorrecta(user.getFechaCreacion()));
+
+        lblValoracion.setText(user.getValoracion() + "/10");
+    }
 
 }
