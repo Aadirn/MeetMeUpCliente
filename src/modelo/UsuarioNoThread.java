@@ -375,9 +375,18 @@ public class UsuarioNoThread {
         return id + "";
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return id + "&" + nickname + "&" + nombre + "&" + apellido1 + "&" + apellido2 + "&" + fechaAStringCorrecta(fechaNacimiento) + "&" + contrasena;
+    }*/
+    
+    public String toStringCrea() {
+        return  nickname + "#" + nombre + "#" + apellido1 + "#" + apellido2 + "#" + fechaAStringCorrecta(fechaNacimiento) + "#" + contrasena;
+    }
+    
+    @Override
+    public String toString() {
+        return id + "=" + nickname + "=" + nombre + "=" + apellido1 + "=" + apellido2 + "=" + fechaAStringCorrecta(fechaNacimiento) + "=" + contrasena;
     }
 
 //    private void respuestaCrea(String respuesta) {

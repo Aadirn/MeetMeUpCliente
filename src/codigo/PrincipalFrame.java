@@ -8,7 +8,8 @@ package codigo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.PrintWriter;
-import modelo.ThreadActualizar;
+import modelo.Quedada;
+import modelo.ThreadAuxSwing;
 import modelo.Usuario;
 
 /**
@@ -18,7 +19,11 @@ import modelo.Usuario;
 public class PrincipalFrame extends javax.swing.JFrame {
 
     private Usuario user;
-    private ThreadActualizar tA;
+    private ThreadAuxSwing tA;
+    private Quedada quedada;
+    private InicioPanel iP;
+    private String creador;
+    private int numQuedadas;
 
     /**
      * AQUI ES DONDE LOS DEMAS PANELES SON LLAMADOS, EXCEPTO CHAT QUE ES UN
@@ -29,15 +34,27 @@ public class PrincipalFrame extends javax.swing.JFrame {
     public PrincipalFrame(Usuario user) {
         this.user = user;
         initComponents();
-        iniciarThread(user);
+        iniciarThread();
+        this.numQuedadas = 0;
         initMio();
+        user.setjFramePrincipal(this);
         //initConDatos();
     }
 
-    private PrincipalFrame() {
+    public PrincipalFrame(Usuario user, Quedada quedada) {
+        iniciarThread();
+        System.out.println("Constructor principalFrame"+tA.toString());
+        this.user = user;
+        this.quedada = quedada;
+        this.numQuedadas = 1;
         initComponents();
-        centrar();
+        //iniciarThread();
         initMio();
+        user.setjFramePrincipal(this);
+
+    }
+
+    private PrincipalFrame() {
 
     }
 
@@ -116,27 +133,57 @@ public class PrincipalFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initMio() {
-        principalPanel.add(new InicioPanel());
-        principalPanel.setTitleAt(0, "Inicio");
+        if (quedada == null) {
+            principalPanel.add(iP = new InicioPanel());
+            principalPanel.setTitleAt(0, "Inicio");
 
-        principalPanel.add(new PerfilPanel(user,tA));
-        principalPanel.setTitleAt(1, "Perfil");
+            principalPanel.add(new PerfilPanel(user, tA));
+            principalPanel.setTitleAt(1, "Perfil");
 
-        principalPanel.add(new SeguidosPanel());
-        principalPanel.setTitleAt(2, "MeetUpers");
+            principalPanel.add(new SeguidosPanel());
+            principalPanel.setTitleAt(2, "MeetUpers");
 
-        principalPanel.add(new QuedadaPanel());
-        principalPanel.setTitleAt(3, "Crear MeetUp");
+            principalPanel.add(new QuedadaPanel(user, tA));
+            principalPanel.setTitleAt(3, "Crear MeetUp");
 
-        principalPanel.add(new AjustesPanel());
-        principalPanel.setTitleAt(4, "Ajustes");
+            principalPanel.add(new AjustesPanel());
+            principalPanel.setTitleAt(4, "Ajustes");
 
-        this.pack();
-        centrar();
+            this.pack();
+            centrar();
+        } else {
+            System.out.println("Entro else del init mio");
+            principalPanel.add(iP = new InicioPanel(quedada, numQuedadas));
+            principalPanel.setTitleAt(0, "Inicio");
+
+            principalPanel.add(new PerfilPanel(user, tA));
+            principalPanel.setTitleAt(1, "Perfil");
+
+            principalPanel.add(new SeguidosPanel());
+            principalPanel.setTitleAt(2, "MeetUpers");
+
+            principalPanel.add(new QuedadaPanel(user, tA));
+            principalPanel.setTitleAt(3, "Crear MeetUp");
+
+            principalPanel.add(new AjustesPanel());
+            principalPanel.setTitleAt(4, "Ajustes");
+
+            this.pack();
+            centrar();
+
+        }
     }
 
-    private void iniciarThread(Usuario user) {
-        tA = ThreadActualizar.init(user);
-        tA.start();
+    private void iniciarThread() {
+        try {
+            tA = ThreadAuxSwing.init(user);
+            tA.start();
+        } catch (IllegalThreadStateException e) {
+
+        }
+    }
+
+    private void initConDatos() {
+
     }
 }

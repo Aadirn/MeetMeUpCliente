@@ -18,7 +18,7 @@ import modelo.Usuario;
 import modelo.UsuarioNoThread;
 
 public class CuentaNuevaFrame extends javax.swing.JFrame {
-    
+
     private Connection conn;
     private String nickname;
     private String nombre;
@@ -30,7 +30,7 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
     private boolean comprobacionApellidos = true;
     private boolean fallo;
     private Usuario u = Usuario.init();
-    
+
     public CuentaNuevaFrame() {
         initComponents();
         centrar();
@@ -55,8 +55,6 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
         txtNombreNueva = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtApellidosNueva = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtCorreoNueva = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -81,9 +79,6 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
         jLabel4.setText("Apellidos");
 
         txtApellidosNueva.setToolTipText("Ponga solo 2 apellidos separados por un espacio.");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("Correo Electrónico");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Contraseña");
@@ -112,11 +107,7 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
-                            .addComponent(txtContrasenaNuevaRepet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
-                            .addComponent(lblAdvertencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(txtContrasenaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblAdvertencia, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(82, 82, 82)
@@ -124,19 +115,22 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtNombreNueva)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                                        .addComponent(txtNickNueva))
+                                    .addComponent(txtApellidosNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtCorreoNueva, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
-                                            .addComponent(txtNombreNueva)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtNickNueva))
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jDateChooserNacimiento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtApellidosNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                                            .addComponent(txtContrasenaNuevaRepet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
+                                        .addComponent(txtContrasenaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jDateChooserNacimiento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(btnCrearCuenta)))
@@ -159,11 +153,7 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(7, 7, 7)
                 .addComponent(txtApellidosNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCorreoNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDateChooserNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,14 +165,14 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtContrasenaNuevaRepet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAdvertencia, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addGap(69, 69, 69)
+                .addComponent(lblAdvertencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCrearCuenta)
                 .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtContrasenaNueva, txtContrasenaNuevaRepet, txtCorreoNueva});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtContrasenaNueva, txtContrasenaNuevaRepet});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,25 +191,25 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
         if (guardarValores()) {
             crearUsuario();
-            
+
         }
         System.out.println("BlaBla");
-        
+
 
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
-    
+
     private void crearUsuario() {
         try {
             UsuarioNoThread user = new UsuarioNoThread(nickname, nombre, apellido1, apellido2, fechaNacimiento, encriptar(contrasena));
             //System.out.println(u.toString());
-            salida.print("crear%" + user.toString() + "\r\n");
+            salida.print("crear%" + user.toStringCrea() + "\r\n");
             salida.flush();
-            
+
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(CuentaNuevaFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private boolean comprobaciones() {
 //        String[] apellidosSepara;
 //        apellidosSepara = apellidos.split(" ");
@@ -229,7 +219,6 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
 //            apellido2 = apellidosSepara[1];
         if (txtNombreNueva.getText().isEmpty()
                 || txtNickNueva.getText().isEmpty()
-                || txtCorreoNueva.getText().isEmpty()
                 || txtApellidosNueva.getText().isEmpty()
                 || String.valueOf(txtContrasenaNueva.getPassword()).isEmpty()
                 || String.valueOf(txtContrasenaNuevaRepet.getPassword()).isEmpty()
@@ -258,13 +247,13 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
             //System.out.println(contrasena);
             return true;
         }
-        
+
     }
-    
+
     private static String encriptar(String s) throws UnsupportedEncodingException {
         return Base64.getEncoder().encodeToString(s.getBytes("utf-8"));
     }
-    
+
     private void centrar() {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
@@ -313,7 +302,6 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
@@ -321,13 +309,12 @@ public class CuentaNuevaFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtApellidosNueva;
     private javax.swing.JPasswordField txtContrasenaNueva;
     private javax.swing.JPasswordField txtContrasenaNuevaRepet;
-    private javax.swing.JTextField txtCorreoNueva;
     private javax.swing.JTextField txtNickNueva;
     private javax.swing.JTextField txtNombreNueva;
     // End of variables declaration//GEN-END:variables
 
     private boolean guardarValores() {
         return comprobaciones();
-        
+
     }
 }

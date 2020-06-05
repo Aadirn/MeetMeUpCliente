@@ -8,6 +8,7 @@ package codigo;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import modelo.Quedada;
 
 /**
  *
@@ -16,20 +17,18 @@ import javax.swing.JScrollPane;
 public class InicioPanel extends javax.swing.JPanel {
 
     private int numQuedadas;
-    private final String nombreQuedada;
-    private final String creadorQuedada;
+    private Quedada quedada;
 
     /**
      * Creates new form InicioPanel
      *
-     * @param nombreQuedada
-     * @param creadorQuedada
+     * @param quedada
      * @param numQuedadas
      */
-    public InicioPanel(String nombreQuedada, String creadorQuedada, int numQuedadas) {
+    public InicioPanel(Quedada quedada, int numQuedadas) {
+        initComponents();
+        this.quedada = quedada;
         this.numQuedadas = numQuedadas;
-        this.nombreQuedada = nombreQuedada;
-        this.creadorQuedada = creadorQuedada;
         creaPanelesSiHay();
         //QUE ME PASEN EL NUMERO DE QUEDADAS
 
@@ -38,8 +37,6 @@ public class InicioPanel extends javax.swing.JPanel {
     public InicioPanel() {
         initComponents();
         this.numQuedadas = 0;
-        this.nombreQuedada = "";
-        this.creadorQuedada = "";
     }
 
     public int getNumQuedadas() {
@@ -129,32 +126,12 @@ public class InicioPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void creaPanelesSiHay() {
-        /*GridLayout lay = new GridLayout(16, 0, 1, 1);
-        jPanel1.setLayout(lay);
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());
-        jPanel1.add(new MiPanel());*/
-        //Cuando llegue al Usuario lo mas probable un String tipo "Quedada"
-        //Creará un panel quedada (el que tiene toda la informacion ) y otro el que tiene la informacion reducida
-        //Tambien por la linea de comandos llegará cuantas quedadas hay
         GridLayout gL = new GridLayout(numQuedadas, 1, 1, 1);
         pnlQuedadas.setLayout(gL);
         int i = 0;
         if (numQuedadas != 0) {
             do {
-                pnlQuedadas.add(new MiPanelQuedada(nombreQuedada, creadorQuedada));
+                pnlQuedadas.add(new MiPanelQuedada(quedada));
                 i++;
             } while (i < numQuedadas);
         }

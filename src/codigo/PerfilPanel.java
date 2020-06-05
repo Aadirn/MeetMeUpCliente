@@ -6,7 +6,7 @@
 package codigo;
 
 import java.util.Calendar;
-import modelo.ThreadActualizar;
+import modelo.ThreadAuxSwing;
 import modelo.Usuario;
 import modelo.UsuarioNoThread;
 
@@ -27,7 +27,7 @@ public class PerfilPanel extends javax.swing.JPanel {
     private boolean esMiPerfil;
     private float valoracion;
     private Usuario user;
-    private ThreadActualizar tA;
+    private ThreadAuxSwing tA;
     private UsuarioNoThread u = new UsuarioNoThread();
 
     /**
@@ -39,7 +39,7 @@ public class PerfilPanel extends javax.swing.JPanel {
 
     }
 
-    public PerfilPanel(Usuario user, ThreadActualizar tA) {
+    public PerfilPanel(Usuario user, ThreadAuxSwing tA) {
         initComponents();
         this.user = user;
         this.tA = tA;

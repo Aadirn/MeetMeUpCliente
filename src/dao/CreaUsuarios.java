@@ -35,13 +35,13 @@ public class CreaUsuarios implements CreaUsuariosI {
         //nick_usuario,password_usuario,nombre_usuario,apellido1_usuario,apellido2_usuario,fecha_nacimiento_usuario
         String[] datosUsuario;
         datosUsuario = comando.split("#");
-        //String nickname, String nombre, String apellido1, String apellido2, Calendar fechaNacimiento, String contrasena
+        //nickname + "#" + nombre + "#" + apellido1 + "#" + apellido2 + "#" + fechaAStringCorrecta(fechaNacimiento) + "#" + contrasena
         nickname = datosUsuario[0];
-        contrasena = datosUsuario[1];
-        nombre = datosUsuario[2];
-        apellido1 = datosUsuario[3];
-        apellido2 = datosUsuario[4];
-        fechaNacimiento = u.fechaACAlendarCorrecta(datosUsuario[5]);
+        contrasena = datosUsuario[5];
+        nombre = datosUsuario[1];
+        apellido1 = datosUsuario[2];
+        apellido2 = datosUsuario[3];
+        fechaNacimiento = u.fechaACAlendarCorrecta(datosUsuario[4]);
 
         UsuarioNoThread user = new UsuarioNoThread(nickname, nombre, apellido1, apellido2, fechaNacimiento, contrasena);
         return user;

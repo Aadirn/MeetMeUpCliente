@@ -11,25 +11,33 @@ import java.io.PrintWriter;
  *
  * @author VSPC-ETERNALSTORM2V5
  */
-public class ThreadActualizar extends Thread {
+public class ThreadAuxSwing extends Thread {
 
     private Usuario user;
-    private static final ThreadActualizar instancia = new ThreadActualizar();
+    private static final ThreadAuxSwing instancia = new ThreadAuxSwing();
+    private boolean finalizar;
 
-    private ThreadActualizar() {
+    private ThreadAuxSwing() {
     }
 
-    public static ThreadActualizar init() {
+    public static ThreadAuxSwing init() {
         return instancia;
     }
 
-    public static ThreadActualizar init(Usuario user) {
+    public static ThreadAuxSwing init(Usuario user) {
         instancia.user = user;
         return instancia;
     }
 
     @Override
     public void run() {
+        finalizar = true;
+        while (finalizar) {
+            
+            //System.out.println("-----------------------Funciono--------------------------\n");
+
+        }
+
     }
 
     public void actualizar(Usuario userExt) {
@@ -40,6 +48,20 @@ public class ThreadActualizar extends Thread {
         pW.print("actualiza%" + userExt.toStringCompletoAlmohadilla() + "\r\n");
         pW.flush();
 
+    }
+
+    public void crearQuedada(Usuario userExt, Quedada quedada) {
+
+        PrintWriter pW = userExt.getSalidaInfo();
+        System.out.println("Thread quedada==>" + quedada.toStringSinLista());
+        pW.print("quedada%" + quedada.toStringSinLista() + "\r\n");
+        pW.flush();
+        //finalizar=false;
+
+    }
+
+    public void finalizar() {
+        finalizar = false;
     }
 
 }

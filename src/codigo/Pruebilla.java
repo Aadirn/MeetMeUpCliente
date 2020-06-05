@@ -109,11 +109,8 @@ public class Pruebilla {
     }
 
     private static void pruebaUsuarios() {
-        UsuarioNoThread u1 = new UsuarioNoThread(1, "u1", "u1", "u1", "u1");
-        //UsuarioNoThread u2 = new UsuarioNoThread(2, "u2", "u2", "us", "u2", Calendar.getInstance(), Calendar.getInstance(), "2", "u2", 2, 2, 2);
-
-        System.out.println(u1.toStringCompleto() + "\n\n\n");
-        //System.out.println(u2.toStringCompleto()+"\n\n\n");
+        boolean a = true;
+        System.out.println(a);
     }
 
 }

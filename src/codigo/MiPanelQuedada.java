@@ -5,6 +5,8 @@
  */
 package codigo;
 
+import modelo.Quedada;
+
 /**
  *
  * @author VSPC-ETERNALSTORM2V5
@@ -14,14 +16,15 @@ public class MiPanelQuedada extends javax.swing.JPanel {
     /**
      * Creates new form MiPanel
      */
-    private final String nombreQuedada;
-    private final String creadorQuedada;
+    private Quedada quedada;
 
-    public MiPanelQuedada(String nombreQuedada, String creadorQuedada) {
+    public MiPanelQuedada(Quedada quedada) {
         initComponents();
-        this.nombreQuedada = nombreQuedada;
-        this.creadorQuedada = creadorQuedada;
-        ponerTextoEtiqueta(nombreQuedada, creadorQuedada);
+        ponerTextoEtiqueta(quedada.getNombreQuedada(), quedada.getCreador().getNickname());
+    }
+
+    public MiPanelQuedada() {
+        initComponents();;
     }
 
     /**

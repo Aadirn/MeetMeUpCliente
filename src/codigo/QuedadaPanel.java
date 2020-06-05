@@ -7,6 +7,9 @@ package codigo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import modelo.Quedada;
+import modelo.ThreadAuxSwing;
+import modelo.Usuario;
 import modelo.UsuarioNoThread;
 
 /**
@@ -24,26 +27,35 @@ public class QuedadaPanel extends javax.swing.JPanel {
     private ArrayList<UsuarioNoThread> usuariosUnidos;
     private UsuarioNoThread creador;
     private String hora;
+    private Usuario user;
+    private ThreadAuxSwing tA;
 
     /**
      * Creates new form InicioPanel
      *
      */
-    public QuedadaPanel() {
+    public QuedadaPanel(Usuario user, ThreadAuxSwing tA) {
         initComponents();
+        txtCreador.setText(user.getNickname());
         esMiQuedada = true;
+        txtMotivo.setLineWrap(true);
+        txtMotivo.setWrapStyleWord(true);
+        this.user = user;
+        this.tA=tA;
 
     }
 
     public QuedadaPanel(String motivoQuedada, String nombreQuedada, int numeroAsistentes, String direccion, int numeroUsuariosUnidos, UsuarioNoThread creador, String hora) {
         this.motivoQuedada = motivoQuedada;
-        this.esMiQuedada = false;
         this.nombreQuedada = nombreQuedada;
         this.numeroAsistentes = numeroAsistentes;
         this.direccion = direccion;
         this.numeroUsuariosUnidos = numeroUsuariosUnidos;
         this.creador = creador;
         this.hora = hora;
+        txtMotivo.setLineWrap(true);
+        txtMotivo.setWrapStyleWord(true);
+
     }
 
     /**
@@ -62,12 +74,11 @@ public class QuedadaPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMotivo = new javax.swing.JTextArea();
         btnCrearUnirse = new javax.swing.JButton();
-        btnBorrar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblNick1 = new javax.swing.JLabel();
         cmboHora = new javax.swing.JComboBox<>();
-        jSpinner1 = new javax.swing.JSpinner();
+        spnMinutos = new javax.swing.JSpinner();
         txtDireccion = new javax.swing.JTextField();
         txtNombreMeetUp = new javax.swing.JTextField();
         txtCreador = new javax.swing.JTextField();
@@ -92,8 +103,11 @@ public class QuedadaPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(txtMotivo);
 
         btnCrearUnirse.setText("Crear");
-
-        btnBorrar.setText("Borrar");
+        btnCrearUnirse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearUnirseActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel7.setText("Direccion");
@@ -106,7 +120,7 @@ public class QuedadaPanel extends javax.swing.JPanel {
 
         cmboHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
 
-        jSpinner1.setModel(new javax.swing.SpinnerListModel(new String[] {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59"}));
+        spnMinutos.setModel(new javax.swing.SpinnerListModel(new String[] {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59"}));
 
         txtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,6 +134,7 @@ public class QuedadaPanel extends javax.swing.JPanel {
             }
         });
 
+        txtCreador.setEditable(false);
         txtCreador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCreadorActionPerformed(evt);
@@ -139,23 +154,17 @@ public class QuedadaPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(62, 62, 62)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel10)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel3))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtNombreMeetUp, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtCreador, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnCrearUnirse)
-                                    .addGap(68, 68, 68)
-                                    .addComponent(btnBorrar)))
+                                    .addComponent(txtNombreMeetUp, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCreador, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
@@ -163,7 +172,7 @@ public class QuedadaPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtDireccion))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(44, 44, 44)
@@ -171,11 +180,15 @@ public class QuedadaPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblNick1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(spnMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(177, 177, 177)
                         .addComponent(jLabel1)))
                 .addContainerGap(68, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnCrearUnirse)
+                .addGap(87, 87, 87))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,17 +217,15 @@ public class QuedadaPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmboHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spnMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNick1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmboAsistentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCrearUnirse)
-                    .addComponent(btnBorrar))
-                .addGap(37, 37, 37))
+                .addGap(62, 62, 62)
+                .addComponent(btnCrearUnirse)
+                .addGap(38, 38, 38))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -230,9 +241,29 @@ public class QuedadaPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCreadorActionPerformed
 
+    private void btnCrearUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUnirseActionPerformed
+        nombreQuedada = txtNombreMeetUp.getText();
+        numeroUsuariosUnidos = 0;
+        System.out.println(nombreQuedada);
+        System.out.println(user.getNickname());
+        motivoQuedada = txtMotivo.getText();
+        direccion = txtDireccion.getText();
+        System.out.println(direccion);
+        hora = cmboHora.getItemAt(cmboHora.getSelectedIndex()) + ":" + spnMinutos.getValue();
+        System.out.println(hora);
+        numeroAsistentes = cmboAsistentes.getSelectedIndex() + 1;
+        System.out.println(numeroAsistentes);
+        creador = new UsuarioNoThread(user.getIdUsuario(), user.getNickname(), user.getNombre(), user.getApellido1(), user.getApellido2());
+        Quedada q = new Quedada(nombreQuedada, numeroAsistentes, motivoQuedada, numeroUsuariosUnidos, creador, hora, user.fechaACAlendarCorrecta(user.fechaAStringCorrecta(Calendar.getInstance())));
+        System.out.println(q.toStringSinLista());
+        System.out.println(tA.toString());
+        tA.crearQuedada(user, q);
+
+
+    }//GEN-LAST:event_btnCrearUnirseActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCrearUnirse;
     private javax.swing.JComboBox<String> cmboAsistentes;
     private javax.swing.JComboBox<String> cmboHora;
@@ -244,8 +275,8 @@ public class QuedadaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lblNick1;
+    private javax.swing.JSpinner spnMinutos;
     private javax.swing.JTextField txtCreador;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextArea txtMotivo;
