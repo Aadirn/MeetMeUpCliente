@@ -17,14 +17,14 @@ public class Quedada {
     private String nombreQuedada;
     private int numeroAsistentes;
     private String motivoQuedada;
-    //private LOCALIZACION;
+    private String direccion;
     private int numeroUsuariosUnidos;
     private ArrayList<UsuarioNoThread> usuariosUnidos;
     private UsuarioNoThread creador;
     private String hora;
     private Calendar creacionQuedada;
 
-    public Quedada(String nombreQuedada, int numeroAsistentes, String motivoQuedada, int numeroUsuariosUnidos, ArrayList<UsuarioNoThread> usuariosUnidos, UsuarioNoThread creador, String hora, Calendar creacionQuedada) {
+    public Quedada(String nombreQuedada, int numeroAsistentes, String motivoQuedada, int numeroUsuariosUnidos, ArrayList<UsuarioNoThread> usuariosUnidos, UsuarioNoThread creador, String hora, String direccion, Calendar creacionQuedada) {
         this.nombreQuedada = nombreQuedada;
         this.numeroAsistentes = numeroAsistentes;
         this.motivoQuedada = motivoQuedada;
@@ -32,6 +32,7 @@ public class Quedada {
         this.usuariosUnidos = usuariosUnidos;
         this.creador = creador;
         this.hora = hora;
+        this.direccion = direccion;
         this.creacionQuedada = creacionQuedada;
     }
 
@@ -44,26 +45,35 @@ public class Quedada {
     }
 
     //TEMPORAL v
-    public Quedada(String nombreQuedada, int numeroAsistentes, String motivoQuedada, int numeroUsuariosUnidos, UsuarioNoThread creador, String hora, Calendar creacionQuedada) {
+    public Quedada(String nombreQuedada, int numeroAsistentes, String motivoQuedada, int numeroUsuariosUnidos, UsuarioNoThread creador, String hora, String direccion, Calendar creacionQuedada) {
         this.nombreQuedada = nombreQuedada;
         this.numeroAsistentes = numeroAsistentes;
         this.creador = creador;
         this.motivoQuedada = motivoQuedada;
         this.numeroUsuariosUnidos = numeroUsuariosUnidos;
         this.hora = hora;
+        this.direccion = direccion;
         this.creacionQuedada = creacionQuedada;
     }
 
     @Override
     public String toString() {
-        return nombreQuedada + "#" + numeroAsistentes + "#" + motivoQuedada + "#" + numeroUsuariosUnidos + "#" + usuariosUnidos + "#" + creador + "#" + hora + "#" + fechaAStringCorrecta(creacionQuedada);
+        return nombreQuedada + "#" + numeroAsistentes + "#" + motivoQuedada + "#" + numeroUsuariosUnidos + "#" + usuariosUnidos + "#" + creador + "#" + hora + "#" + direccion + "#" + fechaAStringCorrecta(creacionQuedada);
     }
 
     public String toStringSinLista() {
-        return nombreQuedada + "=" + numeroAsistentes + "=" + motivoQuedada + "=" + numeroUsuariosUnidos + "=" + creador + "=" + hora + "=" + fechaAStringCorrecta(creacionQuedada);
+        return nombreQuedada + "=" + numeroAsistentes + "=" + motivoQuedada + "=" + numeroUsuariosUnidos + "=" + creador + "=" + hora + "=" + direccion + "=" + fechaAStringCorrecta(creacionQuedada);
     }
 
     public Quedada() {
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     public String getNombreQuedada() {

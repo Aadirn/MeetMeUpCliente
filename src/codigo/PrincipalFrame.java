@@ -153,7 +153,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
             centrar();
         } else {
             System.out.println("Entro else del init mio");
-            principalPanel.add(iP = new InicioPanel(quedada, numQuedadas));
+            principalPanel.add(iP = new InicioPanel(quedada, numQuedadas,user));
             principalPanel.setTitleAt(0, "Inicio");
 
             principalPanel.add(new PerfilPanel(user, tA));

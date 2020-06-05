@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import modelo.Quedada;
+import modelo.Usuario;
 
 /**
  *
@@ -18,6 +19,7 @@ public class InicioPanel extends javax.swing.JPanel {
 
     private int numQuedadas;
     private Quedada quedada;
+    private Usuario user;
 
     /**
      * Creates new form InicioPanel
@@ -25,10 +27,11 @@ public class InicioPanel extends javax.swing.JPanel {
      * @param quedada
      * @param numQuedadas
      */
-    public InicioPanel(Quedada quedada, int numQuedadas) {
+    public InicioPanel(Quedada quedada, int numQuedadas, Usuario user) {
         initComponents();
         this.quedada = quedada;
         this.numQuedadas = numQuedadas;
+        this.user=user;
         creaPanelesSiHay();
         //QUE ME PASEN EL NUMERO DE QUEDADAS
 
@@ -131,10 +134,11 @@ public class InicioPanel extends javax.swing.JPanel {
         int i = 0;
         if (numQuedadas != 0) {
             do {
-                pnlQuedadas.add(new MiPanelQuedada(quedada));
+                pnlQuedadas.add(new MiPanelQuedada(quedada,user));
                 i++;
             } while (i < numQuedadas);
         }
 
     }
+    
 }

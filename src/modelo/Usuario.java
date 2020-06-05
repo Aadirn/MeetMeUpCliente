@@ -512,10 +512,10 @@ public class Usuario extends Thread {
     }
 
     private void respuestaQuedada(String quedada) {
-        //return nombreQuedada + "$" + numeroAsistentes + "$" + motivoQuedada + "$" + numeroUsuariosUnidos + "$" + creador[return id + "$" + nickname + "$" + nombre + "$" + apellido1 + "$" + apellido2 + "$" + fechaAStringCorrecta(fechaNacimiento) + "$" + contrasena;] + "$" + hora + "$" + fechaAStringCorrecta(creacionQuedada);
+        //return nombreQuedada + "$" + numeroAsistentes + "$" + motivoQuedada + "$" + numeroUsuariosUnidos + "$" + creador[return id + "$" + nickname + "$" + nombre + "$" + apellido1 + "$" + apellido2 + "$" + fechaAStringCorrecta(fechaNacimiento) + "$" + contrasena;] + "$" + hora + "$" direccion + fechaAStringCorrecta(creacionQuedada);
         System.out.println(quedada);
         String[] division = quedada.split("=");
-        System.out.println(division[0]);
+        System.out.println("FIJATE AQUIIIIII==>" + division.length);
         String nombreQuedada = division[0];
         int numeroAsistentes = Integer.parseInt(division[1]);
         String motivoQuedada = division[2];
@@ -528,9 +528,10 @@ public class Usuario extends Thread {
         String fechaNacimientoCreador = division[9];
         String contrasenaCreador = division[10];//No usar
         String hora = division[11];
-        Calendar creacionQuedada = instancia.fechaACAlendarCorrecta(division[12]);
+        String direccion = division[12];
+        Calendar creacionQuedada = instancia.fechaACAlendarCorrecta(division[13]);
         UsuarioNoThread u = new UsuarioNoThread(idCreador, nicknameCreador, nombreCreador, apellido1Creador, apellido2Creador);
-        Quedada q = new Quedada(nombreQuedada, numeroAsistentes, motivoQuedada, numeroUsuariosUnidos, u, hora, creacionQuedada);
+        Quedada q = new Quedada(nombreQuedada, numeroAsistentes, motivoQuedada, numeroUsuariosUnidos, u, hora, direccion, creacionQuedada);
         jFramePrincipal.dispose();
         System.out.println("fallas aqui?");
         PrincipalFrame pF = new PrincipalFrame(instancia, q);

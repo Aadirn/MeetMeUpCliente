@@ -6,6 +6,7 @@
 package codigo;
 
 import modelo.Quedada;
+import modelo.Usuario;
 
 /**
  *
@@ -17,14 +18,17 @@ public class MiPanelQuedada extends javax.swing.JPanel {
      * Creates new form MiPanel
      */
     private Quedada quedada;
+    private Usuario user;
 
-    public MiPanelQuedada(Quedada quedada) {
+    public MiPanelQuedada(Quedada quedada, Usuario user) {
         initComponents();
+        this.quedada = quedada;
+        this.user = user;
         ponerTextoEtiqueta(quedada.getNombreQuedada(), quedada.getCreador().getNickname());
     }
 
     public MiPanelQuedada() {
-        initComponents();;
+        initComponents();
     }
 
     /**
@@ -45,8 +49,13 @@ public class MiPanelQuedada extends javax.swing.JPanel {
         });
 
         lblQuedada.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        lblQuedada.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblQuedada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblQuedada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblQuedada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQuedadaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -69,6 +78,11 @@ public class MiPanelQuedada extends javax.swing.JPanel {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         evt.getLocationOnScreen();
     }//GEN-LAST:event_formMouseClicked
+
+    private void lblQuedadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuedadaMouseClicked
+        QuedadaFrameAjeno qFA = new QuedadaFrameAjeno(quedada,user);
+        qFA.setVisible(true);
+    }//GEN-LAST:event_lblQuedadaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -41,7 +41,12 @@ public class QuedadaPanel extends javax.swing.JPanel {
         txtMotivo.setLineWrap(true);
         txtMotivo.setWrapStyleWord(true);
         this.user = user;
-        this.tA=tA;
+        this.tA = tA;
+
+    }
+
+    public QuedadaPanel() {
+        initComponents();
 
     }
 
@@ -254,9 +259,8 @@ public class QuedadaPanel extends javax.swing.JPanel {
         numeroAsistentes = cmboAsistentes.getSelectedIndex() + 1;
         System.out.println(numeroAsistentes);
         creador = new UsuarioNoThread(user.getIdUsuario(), user.getNickname(), user.getNombre(), user.getApellido1(), user.getApellido2());
-        Quedada q = new Quedada(nombreQuedada, numeroAsistentes, motivoQuedada, numeroUsuariosUnidos, creador, hora, user.fechaACAlendarCorrecta(user.fechaAStringCorrecta(Calendar.getInstance())));
+        Quedada q = new Quedada(nombreQuedada, numeroAsistentes, motivoQuedada, numeroUsuariosUnidos, creador, hora, direccion,user.fechaACAlendarCorrecta(user.fechaAStringCorrecta(Calendar.getInstance())));
         System.out.println(q.toStringSinLista());
-        System.out.println(tA.toString());
         tA.crearQuedada(user, q);
 
 
