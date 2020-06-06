@@ -7,8 +7,10 @@ package modelo;
 
 import codigo.PrincipalFrame;
 import dao.ControllerCreacion;
+import dao.UsuarioDaoImp;
 import java.awt.Component;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
@@ -16,6 +18,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Objects;
 import java.util.Scanner;
@@ -74,6 +78,7 @@ public class Usuario extends Thread {
     private static int vecesValorado;
     private static int totalValoraciones;
     private static String biografia;
+    private ArrayList<Quedada> quedadas = new ArrayList<>();
 
     @Override
     public void run() {
@@ -96,6 +101,10 @@ public class Usuario extends Thread {
                 case "quedada":
                     System.out.println("quedada en cliente thread");
                     respuestaQuedada(troceo[1]);
+                    break;
+                case "unirse":
+                    System.out.println("Unirse en cliente");
+                    respuestaUnirse(troceo[1]);
                     break;
 
             }
@@ -244,6 +253,14 @@ public class Usuario extends Thread {
         instancia.totalValoraciones = totalValoraciones;
         instancia.biografia = biografia;
         return instancia;
+    }
+
+    public ArrayList<Quedada> getQuedadas() {
+        return quedadas;
+    }
+
+    public void setQuedadas(ArrayList<Quedada> quedadas) {
+        this.quedadas = quedadas;
     }
 
     public int getVecesValorado() {
@@ -515,7 +532,7 @@ public class Usuario extends Thread {
         //return nombreQuedada + "$" + numeroAsistentes + "$" + motivoQuedada + "$" + numeroUsuariosUnidos + "$" + creador[return id + "$" + nickname + "$" + nombre + "$" + apellido1 + "$" + apellido2 + "$" + fechaAStringCorrecta(fechaNacimiento) + "$" + contrasena;] + "$" + hora + "$" direccion + fechaAStringCorrecta(creacionQuedada);
         System.out.println(quedada);
         String[] division = quedada.split("=");
-        System.out.println("FIJATE AQUIIIIII==>" + division.length);
+        //System.out.println("FIJATE AQUIIIIII==>" + division.length);
         String nombreQuedada = division[0];
         int numeroAsistentes = Integer.parseInt(division[1]);
         String motivoQuedada = division[2];
@@ -530,11 +547,16 @@ public class Usuario extends Thread {
         String hora = division[11];
         String direccion = division[12];
         Calendar creacionQuedada = instancia.fechaACAlendarCorrecta(division[13]);
+        int numQuedadas = Integer.parseInt(division[14]);
+
         UsuarioNoThread u = new UsuarioNoThread(idCreador, nicknameCreador, nombreCreador, apellido1Creador, apellido2Creador);
         Quedada q = new Quedada(nombreQuedada, numeroAsistentes, motivoQuedada, numeroUsuariosUnidos, u, hora, direccion, creacionQuedada);
+        q.setNumeroQuedadas(numQuedadas);
+        quedadas.add(q);
+        System.out.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHHH---->" + quedadas.size());
         jFramePrincipal.dispose();
         System.out.println("fallas aqui?");
-        PrincipalFrame pF = new PrincipalFrame(instancia, q);
+        PrincipalFrame pF = new PrincipalFrame(instancia, quedadas);
         pF.setVisible(true);
 
     }
@@ -552,12 +574,115 @@ public class Usuario extends Thread {
                 instancia.setApellido1(rs.getString("apellido1_usuario"));
                 instancia.setApellido2(rs.getString("apellido2_usuario"));
                 instancia.setFechaCreacion(instancia.fechaACAlendarCorrecta(rs.getString("fecha_creacion_usuario")));
-                instancia.setFechaCreacion(instancia.fechaACAlendarCorrecta(rs.getString("fecha_nacimiento_usuario")));
+                instancia.setFechaNacimiento(instancia.fechaACAlendarCorrecta(rs.getString("fecha_nacimiento_usuario")));
                 conn.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void respuestaUnirse(String unirse) {
+        //idUnido + "=" + nickUnido + "=" + idCreador + "=" + nickCreador;
+
+        int idUnido;
+        String nickUnido;
+        int idCreador;
+        String nickCreador;
+        String[] dividir = unirse.split("=");
+        idUnido = Integer.parseInt(dividir[0]);
+        nickUnido = dividir[1];
+        idCreador = Integer.parseInt(dividir[2]);
+        nickCreador = dividir[3];
+
+        UsuarioNoThread u = obtenerDeBd(idUnido);
+
+        for (int i = 0; i < quedadas.size(); i++) {
+            Quedada q = quedadas.get(i);
+
+            String buscaNick = q.getCreador().getNickname();
+            if (buscaNick.equals(nickCreador)) {
+                ArrayList<UsuarioNoThread> users = q.getUsuariosUnidos();
+                int numUnidos = q.getNumeroUsuariosUnidos();
+                users.add(u);
+                q.setUsuariosUnidos(users);
+                q.setNumeroUsuariosUnidos(numUnidos + 1);
+
+            }
+
+        }
+        jFramePrincipal.dispose();
+        PrincipalFrame pF = new PrincipalFrame(instancia, quedadas);
+        pF.setVisible(true);
+
+    }
+
+    private UsuarioNoThread obtenerDeBd(int idUnido) {
+        Statement stm = null;
+        ResultSet rs = null;
+        String fecha;
+
+        String sql = "SELECT id_usuario,nick_usuario,AES_DECRYPT(password_usuario, 'admin'),nombre_usuario,apellido1_usuario,apellido2_usuario,fecha_creacion_usuario,fecha_nacimiento_usuario,usuarios_seguidos,num_usuarios_seguidos,valoracion_total,veces_valorado,biografia from usuarios WHERE id_usuario=" + idUnido;
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/meetmeup", "root", "1234");
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            if(rs.next()){
+            UsuarioNoThread u = new UsuarioNoThread();
+            u.setId(rs.getInt("id_usuario"));
+            u.setNickname(rs.getString("nick_usuario"));
+            u.setContrasena(encriptar(rs.getString("AES_DECRYPT(password_usuario, 'admin')")));
+            u.setNombre(rs.getString("nombre_usuario"));
+            u.setApellido1(rs.getString("apellido1_usuario"));
+            u.setApellido2(rs.getString("apellido2_usuario"));
+
+            fecha = rs.getString("fecha_creacion_usuario");
+            u.setFechaCreacion(crearCalendarDeString(fecha));
+
+            fecha = rs.getString("fecha_nacimiento_usuario");
+            u.setFechaNacimiento(crearCalendarDeString(fecha));
+            u.setUsuariosSeguidos(rs.getString("usuarios_seguidos"));
+            u.setNumUsuariosSeguidos(rs.getInt("num_usuarios_seguidos"));
+            u.setVecesValorado(rs.getInt("veces_valorado"));
+            u.setTotalValoraciones(rs.getInt("valoracion_total"));
+            u.setBiografia(rs.getString("biografia"));
+
+            stm.close();
+            rs.close();
+            conn.close();
+            return u;
+            }
+        } catch (SQLException | UnsupportedEncodingException ex) {
+            Logger.getLogger(UsuarioDaoImp.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return null;
+    }
+
+    private static String desencriptar(String s) throws UnsupportedEncodingException {
+        byte[] decode = Base64.getDecoder().decode(s.getBytes());
+        return new String(decode, "utf-8");
+    }
+
+    private static String encriptar(String s) throws UnsupportedEncodingException {
+        return Base64.getEncoder().encodeToString(s.getBytes("utf-8"));
+    }
+
+    private Calendar crearCalendarDeString(String s) {
+        Calendar fechaCreacion = Calendar.getInstance();
+        String[] fechaDividida = new String[2];
+
+        fechaDividida = s.split("-");
+
+        int year = Integer.parseInt(fechaDividida[0]);
+        int month = Integer.parseInt(fechaDividida[1]);
+        int day = Integer.parseInt(fechaDividida[2]);
+
+        fechaCreacion.set(Calendar.YEAR, year);
+        fechaCreacion.set(Calendar.MONTH, month);
+        fechaCreacion.set(Calendar.DAY_OF_MONTH, day);
+
+        return fechaCreacion;
     }
 
 }

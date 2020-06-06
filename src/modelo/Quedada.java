@@ -19,10 +19,11 @@ public class Quedada {
     private String motivoQuedada;
     private String direccion;
     private int numeroUsuariosUnidos;
-    private ArrayList<UsuarioNoThread> usuariosUnidos;
+    private ArrayList<UsuarioNoThread> usuariosUnidos=new ArrayList<>();
     private UsuarioNoThread creador;
     private String hora;
     private Calendar creacionQuedada;
+    private int numeroQuedadas;
 
     public Quedada(String nombreQuedada, int numeroAsistentes, String motivoQuedada, int numeroUsuariosUnidos, ArrayList<UsuarioNoThread> usuariosUnidos, UsuarioNoThread creador, String hora, String direccion, Calendar creacionQuedada) {
         this.nombreQuedada = nombreQuedada;
@@ -54,6 +55,14 @@ public class Quedada {
         this.hora = hora;
         this.direccion = direccion;
         this.creacionQuedada = creacionQuedada;
+    }
+
+    public int getNumeroQuedadas() {
+        return numeroQuedadas;
+    }
+
+    public void setNumeroQuedadas(int numeroQuedadas) {
+        this.numeroQuedadas = numeroQuedadas;
     }
 
     @Override

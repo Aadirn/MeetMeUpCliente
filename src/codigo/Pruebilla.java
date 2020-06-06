@@ -6,11 +6,8 @@
 package codigo;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import javax.swing.JOptionPane;
 import modelo.Quedada;
 import modelo.Usuario;
-import static modelo.Usuario.init;
 import modelo.UsuarioNoThread;
 
 /**
@@ -109,8 +106,92 @@ public class Pruebilla {
     }
 
     private static void pruebaUsuarios() {
-        boolean a = true;
-        System.out.println(a);
+        ArrayList<UsuarioNoThread> u = new ArrayList<>();
+        UsuarioNoThread u1 = new UsuarioNoThread(1, "Elpu", "a", "aa", "aaa");
+        UsuarioNoThread u2 = new UsuarioNoThread(2, "Olpo", "b", "bb", "bbb");
+        UsuarioNoThread u3 = new UsuarioNoThread(3, "Alpa", "c", "cc", "ccc");
+        u.add(u1);
+        u.add(u2);
+        u.add(u3);
+        
+        System.out.println(u.toString());
+        
+        //[1=Elpu=a=aa=aaa=null=null, 2=Olpo=b=bb=bbb=null=null, 3=Alpa=c=cc=ccc=null=null]
+        
+        //1=Elpu=a=aa=aaa=null=null
+        
+        String efe = u.toString().replace('[', ' ');
+        String efe2 = efe.replace(']', ' ');
+        String efe3 = efe2.replaceAll(" ", "");
+        System.out.println(efe3);
+        String usuarioCompleto = null;
+        
+        
+        String[] f = efe3.split(",");
+        for (int i = 0; i < f.length; i++) {
+            String[] f2 = f[i].split("=");
+            String id=f2[0];
+            String nick=f2[1];
+            String nombre=f2[2];
+            String apellido1=f2[3];
+            String apellido2=f2[4];
+            usuarioCompleto=id+", "+nick+", "+nombre+", "+apellido1+", "+apellido2;
+            System.out.println(usuarioCompleto);
+        }
+        
+//
+//        for (int i = 0; i < f.length; i++) {
+//
+//            switch (i) {
+//                case 4:
+//
+//                    String separar = f[i];
+//                    //System.out.println(separar);
+//                    int inicio = separar.indexOf("[");
+//                    int fin = separar.indexOf("]");
+//                    String miniString = separar.substring(inicio + 1, fin).replace(" ", "");
+//                    System.out.println(miniString + "\n");
+//                    String[] otraDivision = miniString.split(",");
+//                    //System.out.println("imbecil que soy");
+//                    for (int j = 0; j < otraDivision.length; j++) {
+//                        //System.out.println("PITO");
+//                        String[] ultimaDivision = otraDivision[j].split("&");
+//                        System.out.println(ultimaDivision[0]);
+//                        int id = Integer.parseInt(ultimaDivision[0]);
+//                        String nick = ultimaDivision[1];
+//                        String nombre = ultimaDivision[2];
+//                        String ap1 = ultimaDivision[3];
+//                        String ap2 = ultimaDivision[4];
+//                        Usuario fin1 = Usuario.init(id, nick, nombre, ap1, ap2);
+//                        listaFinalQuedada.add(fin1);
+//
+//                        for (int k = 0; k < ultimaDivision.length; k++) {
+//
+//                            System.out.println(ultimaDivision[k]);
+//                        }
+//                        System.out.println(otraDivision[j] + "\n");
+//                    }
+//                    break;
+//                case 5:
+//                    String[] usuarioCreador = f[i].split("&");
+//                    int id = Integer.parseInt(usuarioCreador[0]);
+//                    String nick = usuarioCreador[1];
+//                    String nombre = usuarioCreador[2];
+//                    String ap1 = usuarioCreador[3];
+//                    String ap2 = usuarioCreador[4];
+//                    creador = Usuario.init(id, nick, nombre, ap1, ap2);
+//
+//                    break;
+//                default:
+//            }
+//            System.out.println("Iteracion=" + f[i] + "\n\n\n\n\n\n");
+//
+//        }
+        
+        
+        
+        
+        
     }
 
 }

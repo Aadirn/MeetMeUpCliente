@@ -8,6 +8,7 @@ package codigo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import modelo.Quedada;
 import modelo.ThreadAuxSwing;
 import modelo.Usuario;
@@ -23,7 +24,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private Quedada quedada;
     private InicioPanel iP;
     private String creador;
-    private int numQuedadas;
+    private ArrayList<Quedada> quedadas = new ArrayList<>();
 
     /**
      * AQUI ES DONDE LOS DEMAS PANELES SON LLAMADOS, EXCEPTO CHAT QUE ES UN
@@ -35,18 +36,15 @@ public class PrincipalFrame extends javax.swing.JFrame {
         this.user = user;
         initComponents();
         iniciarThread();
-        this.numQuedadas = 0;
         initMio();
         user.setjFramePrincipal(this);
         //initConDatos();
     }
 
-    public PrincipalFrame(Usuario user, Quedada quedada) {
+    public PrincipalFrame(Usuario user, ArrayList<Quedada> quedadas) {
         iniciarThread();
-        System.out.println("Constructor principalFrame"+tA.toString());
         this.user = user;
-        this.quedada = quedada;
-        this.numQuedadas = 1;
+        this.quedadas = quedadas;
         initComponents();
         //iniciarThread();
         initMio();
@@ -133,7 +131,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initMio() {
-        if (quedada == null) {
+        if (quedadas.isEmpty()) {
             principalPanel.add(iP = new InicioPanel());
             principalPanel.setTitleAt(0, "Inicio");
 
@@ -153,7 +151,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
             centrar();
         } else {
             System.out.println("Entro else del init mio");
-            principalPanel.add(iP = new InicioPanel(quedada, numQuedadas,user));
+            principalPanel.add(iP = new InicioPanel(quedadas, user));
             principalPanel.setTitleAt(0, "Inicio");
 
             principalPanel.add(new PerfilPanel(user, tA));
@@ -181,9 +179,5 @@ public class PrincipalFrame extends javax.swing.JFrame {
         } catch (IllegalThreadStateException e) {
 
         }
-    }
-
-    private void initConDatos() {
-
     }
 }

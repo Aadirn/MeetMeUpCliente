@@ -6,6 +6,7 @@
 package codigo;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import modelo.Quedada;
@@ -18,20 +19,20 @@ import modelo.Usuario;
 public class InicioPanel extends javax.swing.JPanel {
 
     private int numQuedadas;
-    private Quedada quedada;
     private Usuario user;
+    private ArrayList<Quedada> quedadas;
 
     /**
      * Creates new form InicioPanel
      *
-     * @param quedada
-     * @param numQuedadas
+     * @param quedadas
+     * @param user
      */
-    public InicioPanel(Quedada quedada, int numQuedadas, Usuario user) {
+    public InicioPanel(ArrayList<Quedada> quedadas, Usuario user) {
         initComponents();
-        this.quedada = quedada;
-        this.numQuedadas = numQuedadas;
-        this.user=user;
+        this.numQuedadas = quedadas.size();
+        this.quedadas = quedadas;
+        this.user = user;
         creaPanelesSiHay();
         //QUE ME PASEN EL NUMERO DE QUEDADAS
 
@@ -129,16 +130,17 @@ public class InicioPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void creaPanelesSiHay() {
+        System.out.println("afgbaolfvblasjkdbfvoklshjvbolskdujfb==>" + numQuedadas);
         GridLayout gL = new GridLayout(numQuedadas, 1, 1, 1);
         pnlQuedadas.setLayout(gL);
         int i = 0;
         if (numQuedadas != 0) {
             do {
-                pnlQuedadas.add(new MiPanelQuedada(quedada,user));
+                pnlQuedadas.add(new MiPanelQuedada(quedadas.get(i), user));
                 i++;
             } while (i < numQuedadas);
         }
 
     }
-    
+
 }

@@ -39,10 +39,18 @@ public class PerfilPanel extends javax.swing.JPanel {
 
     }
 
+    public PerfilPanel(UsuarioNoThread u) {
+        initComponents();
+        this.u = u;
+        this.esMiPerfil = false;
+
+    }
+
     public PerfilPanel(Usuario user, ThreadAuxSwing tA) {
         initComponents();
         this.user = user;
         this.tA = tA;
+        this.esMiPerfil = true;
         rellenarCajasTxt();
     }
 
@@ -253,21 +261,42 @@ public class PerfilPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void rellenarCajasTxt() {
-        txtNickname.setText(user.getNickname());
-        txtNombreYApellidos.setText(user.getNombre() + " " + user.getApellido1() + " " + user.getApellido2());
-        txtBiografia.setLineWrap(true);
-        txtBiografia.setWrapStyleWord(true);
-        txtBiografia.setText(user.getBiografia());
-        int anhoActual = Calendar.getInstance().get(Calendar.YEAR);
-        System.out.println(anhoActual);
-        int anhoNacimiento = user.getFechaNacimiento().get(Calendar.YEAR);
-        System.out.println(anhoNacimiento);
-        anhos = (anhoActual - anhoNacimiento) + "";
-        System.out.println(anhos);
-        txtAnhos.setText(anhos);
-        lblFechaCreacion.setText(user.fechaAStringCorrecta(user.getFechaCreacion()));
+        if (esMiPerfil) {
+            txtNickname.setText(user.getNickname());
+            txtNombreYApellidos.setText(user.getNombre() + " " + user.getApellido1() + " " + user.getApellido2());
+            txtBiografia.setLineWrap(true);
+            txtBiografia.setWrapStyleWord(true);
+            txtBiografia.setText(user.getBiografia());
+            int anhoActual = Calendar.getInstance().get(Calendar.YEAR);
+            System.out.println(anhoActual);
+            int anhoNacimiento = user.getFechaNacimiento().get(Calendar.YEAR);
+            System.out.println(anhoNacimiento);
+            anhos = (anhoActual - anhoNacimiento) + "";
+            System.out.println(anhos);
+            txtAnhos.setText(anhos);
+            lblFechaCreacion.setText(user.fechaAStringCorrecta(user.getFechaCreacion()));
 
-        lblValoracion.setText(user.getValoracion() + "/10");
+            btnGuardar.setVisible(true);
+
+            lblValoracion.setText(user.getValoracion() + "/10");
+        } else {
+            txtNickname.setText(u.getNickname());
+            txtNombreYApellidos.setText(u.getNombre() + " " + u.getApellido1() + " " + u.getApellido2());
+            txtBiografia.setLineWrap(true);
+            txtBiografia.setWrapStyleWord(true);
+            txtBiografia.setText(u.getBiografia());
+            int anhoActual = Calendar.getInstance().get(Calendar.YEAR);
+            System.out.println(anhoActual);
+            int anhoNacimiento = u.getFechaNacimiento().get(Calendar.YEAR);
+            System.out.println(anhoNacimiento);
+            anhos = (anhoActual - anhoNacimiento) + "";
+            System.out.println(anhos);
+            txtAnhos.setText(anhos);
+            lblFechaCreacion.setText(u.fechaAStringCorrecta(u.getFechaCreacion()));
+            btnGuardar.setVisible(false);
+
+            lblValoracion.setText(u.getValoracion() + "/10");
+        }
     }
 
 }

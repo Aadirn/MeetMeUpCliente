@@ -33,9 +33,8 @@ public class ThreadAuxSwing extends Thread {
     public void run() {
         finalizar = true;
         while (finalizar) {
-            
-            //System.out.println("-----------------------Funciono--------------------------\n");
 
+            //System.out.println("-----------------------Funciono--------------------------\n");
         }
 
     }
@@ -58,6 +57,14 @@ public class ThreadAuxSwing extends Thread {
         pW.flush();
         //finalizar=false;
 
+    }
+
+    public void unirseQuedada(Usuario userExt, String idUnido, String nickUnido, String idCreador, String nickCreador) {
+        PrintWriter pW = userExt.getSalidaInfo();
+        String strUnirse = idUnido + "=" + nickUnido + "=" + idCreador + "=" + nickCreador;
+        System.out.println("Thread unirseQuedada==>" + strUnirse);
+        pW.print("unirse%" + strUnirse + "\r\n");
+        pW.flush();
     }
 
     public void finalizar() {
